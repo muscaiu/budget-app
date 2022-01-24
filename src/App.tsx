@@ -1,13 +1,17 @@
-import React from "react";
 import Button from "react-bootstrap/Button";
+
+import { StyledContainer, StyledStack, H1 } from "./App.styles";
 
 function App() {
   return (
-    <div>
-      <button>button</button>
-      <Button>SSS</Button>
-      <p>App</p>
-    </div>
+    <StyledContainer>
+      <StyledStack>
+        <H1>Budgets</H1>
+
+        <Button variant="primary">Add Budget</Button>
+        <Button variant="outline-primary">Add Expense</Button>
+      </StyledStack>
+    </StyledContainer>
   );
 }
 
