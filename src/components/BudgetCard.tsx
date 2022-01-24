@@ -11,9 +11,10 @@ interface Props {
   amount: number;
   max: number;
   gray?: string;
+  onAddExpenseClick: any;
 }
 
-function BudgetCard({ name, amount, max, gray }: Props) {
+function BudgetCard({ name, amount, max, gray, onAddExpenseClick }: Props) {
   const cardBackground = () => {
     const classNames = [];
     if (amount > max) {
@@ -44,7 +45,11 @@ function BudgetCard({ name, amount, max, gray }: Props) {
           now={amount}
         />
         <Stack direction="horizontal" gap={2} className="mt-4">
-          <Button variant="outline-primary" className="ms-auto">
+          <Button
+            onClick={onAddExpenseClick}
+            variant="outline-primary"
+            className="ms-auto"
+          >
             Add Expense
           </Button>
           <Button variant="outline-secondary">View Expenses</Button>

@@ -9,7 +9,15 @@ import { useBudgets } from "./contexts/BudgetsContext";
 
 function App() {
   const [showAddBudgetModal, setShowAddBudgetModal] = useState<boolean>(false);
+  const [showAddExpenseModal, setShowAddExpenseModal] =
+    useState<boolean>(false);
+  const [addExpenseModalBudgetId, setAddExpenseModalBudgetId] = useState();
   const { budgets, getBudgetExpenses } = useBudgets();
+
+  function openAddExpenseModal(budgetId: any) {
+    setShowAddExpenseModal(true);
+    setAddExpenseModalBudgetId(budgetId);
+  }
 
   return (
     <>
@@ -20,7 +28,9 @@ function App() {
           <Button onClick={() => setShowAddBudgetModal(true)} variant="primary">
             Add Budget
           </Button>
-          <Button variant="outline-primary">Add Expense</Button>
+          <Button onClick={openAddExpenseModal} variant="outline-primary">
+            Add Expense
+          </Button>
         </StyledStack>
         <Grid>
           {budgets.map((budget) => {
@@ -34,6 +44,7 @@ function App() {
                 amount={amount}
                 name={budget.name}
                 max={budget.max}
+                onAddExpenseClick={() => openAddExpenseModal(budget.id)}
               />
             );
           })}
@@ -45,8 +56,8 @@ function App() {
       />
       <AddExpenseModal
         defaultBudgetId={1}
-        show={true}
-        handleClose={() => setShowAddBudgetModal(false)}
+        show={showAddExpenseModal}
+        handleClose={() => setShowAddExpenseModal(false)}
       />
     </>
   );
