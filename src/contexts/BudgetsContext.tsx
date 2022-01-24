@@ -8,11 +8,13 @@ interface AppContextInterface {
   getBudgetxpenses: Function;
   addExpense: Function;
   addBudget: Function;
-  getBudgetxdeleteBudgetpenses: Function;
+  getBudgetExpenses: Function;
   deleteBudget: Function;
   deleteExpense: Function;
 }
 const BudgetsContext = React.createContext({} as AppContextInterface);
+
+export const UNCATEGORIZED_BUDGET_ID = "Uncategorized";
 
 export function useBudgets() {
   return useContext(BudgetsContext);
@@ -25,6 +27,7 @@ interface BudgetsProviderProps {
 export interface Budget {
   name: string;
   max: number;
+  amount: number;
   id: string;
 }
 export interface Expense {
@@ -57,7 +60,9 @@ export const BudgetsProvider = ({ children }: BudgetsProviderProps) => {
     });
   }
 
-  function getBudgetxdeleteBudgetpenses() {}
+  function getBudgetExpenses(budgetId: number) {
+    return expenses.filter((expense: Expense) => expense.budgetId === budgetId);
+  }
 
   function deleteBudget({ id }: any) {
     // TOD: Deal with uncategorized expenses
@@ -80,7 +85,7 @@ export const BudgetsProvider = ({ children }: BudgetsProviderProps) => {
         getBudgetxpenses,
         addExpense,
         addBudget,
-        getBudgetxdeleteBudgetpenses,
+        getBudgetExpenses,
         deleteBudget,
         deleteExpense,
       }}

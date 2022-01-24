@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BudgetsProvider } from "./contexts/BudgetsProvider";
+import { BudgetsProvider } from "./contexts/BudgetsContext";
 
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
