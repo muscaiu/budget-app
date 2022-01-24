@@ -55,7 +55,7 @@ function App() {
         handleClose={() => setShowAddBudgetModal(false)}
       />
       <AddExpenseModal
-        defaultBudgetId={1}
+        defaultBudgetId={addExpenseModalBudgetId}
         show={showAddExpenseModal}
         handleClose={() => setShowAddExpenseModal(false)}
       />
