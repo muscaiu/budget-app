@@ -1,5 +1,5 @@
 export const currencyFormatter = new Intl.NumberFormat(undefined, { 
-    currency: "usd",
+    currency: "ron",
     style: "currency",
     minimumFractionDigits: 0
 })

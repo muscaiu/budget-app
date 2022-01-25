@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import styled from "styled-components";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/esm/Button";
@@ -6,20 +7,31 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 
 import { currencyFormatter } from "../utils";
 
-interface Props {
-  name: string;
-  amount: number;
-  max: number;
-  gray?: string;
-  onAddExpenseClick: any;
+export interface BudgetCardProps {
+  name?: string;
+  amount?: number;
+  max?: number;
+  gray?: boolean;
+  hideButtons?: boolean;
+  onAddExpenseClick?: MouseEventHandler<HTMLButtonElement> | undefined;
+  onViewExpenseClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-function BudgetCard({ name, amount, max, gray, onAddExpenseClick }: Props) {
+function BudgetCard({
+  name,
+  amount,
+  max,
+  gray,
+  onAddExpenseClick,
+  onViewExpenseClick,
+  hideButtons,
+}: BudgetCardProps) {
   const cardBackground = () => {
     const classNames = [];
-    if (amount > max) {
+    if (amount! > max!) {
       classNames.push("bg-danger", "bg-opacity-10");
-    } else if (gray) {
+    }
+    if (gray || !max) {
       classNames.push("bg-light");
     }
     return classNames;
@@ -31,29 +43,37 @@ function BudgetCard({ name, amount, max, gray, onAddExpenseClick }: Props) {
         <Card.Title className="d-flex justify-content-between align-items-baseline fw-normal mb-3">
           <div className="me-2">{name}</div>
           <div className="d-flex align-items-baseline">
-            {currencyFormatter.format(amount)}
-            <span className="text-muted fs-6 ms-1">
-              / {currencyFormatter.format(max)}
-            </span>
+            {currencyFormatter.format(amount!)}
+            {max && (
+              <span className="text-muted fs-6 ms-1">
+                / {currencyFormatter.format(max)}
+              </span>
+            )}
           </div>
         </Card.Title>
-        <ProgressBar
-          className="rounded-pill"
-          variant={getProgressBarVariant(amount, max)}
-          min={0}
-          max={max}
-          now={amount}
-        />
-        <Stack direction="horizontal" gap={2} className="mt-4">
-          <Button
-            onClick={onAddExpenseClick}
-            variant="outline-primary"
-            className="ms-auto"
-          >
-            Add Expense
-          </Button>
-          <Button variant="outline-secondary">View Expenses</Button>
-        </Stack>
+        {max && (
+          <ProgressBar
+            className="rounded-pill"
+            variant={getProgressBarVariant(amount!, max)}
+            min={0}
+            max={max}
+            now={amount}
+          />
+        )}
+        {!hideButtons && (
+          <Stack direction="horizontal" gap={2} className="mt-4">
+            <Button
+              onClick={onAddExpenseClick}
+              variant="outline-primary"
+              className="ms-auto"
+            >
+              Add Expense
+            </Button>
+            <Button onClick={onViewExpenseClick} variant="outline-secondary">
+              View Expenses
+            </Button>
+          </Stack>
+        )}
       </Card.Body>
     </StyledCard>
   );

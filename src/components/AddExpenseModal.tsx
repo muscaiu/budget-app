@@ -27,10 +27,10 @@ export default function AddExpenseModal({
 
   const { addExpense, budgets } = useBudgets();
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     addExpense({
-      descriptionRef: descriptionRef.current.value,
+      description: descriptionRef.current.value,
       amount: parseFloat(amountRef.current.value),
       budgetId: budgetIdRef.current.value,
     });

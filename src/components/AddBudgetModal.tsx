@@ -18,7 +18,7 @@ export default function AddBudgetModal({ show, handleClose }: Props) {
 
   const { addBudget } = useBudgets();
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     addBudget({
       name: nameRef.current.value,
